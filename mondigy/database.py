@@ -229,7 +229,7 @@ class AnnotationDatabase(object):
         else:
             self.dataset_collection.insert_one({
                 'name': name,
-                'meta': json.dumps(meta),
+                'meta': meta,
                 'session': session,
                 'created': int(time.time()),
             })
@@ -240,7 +240,7 @@ class AnnotationDatabase(object):
             {
                 'input_hash': x[INPUT_HASH_ATTR],
                 'task_hash': x[TASK_HASH_ATTR],
-                'content': json.dumps(x)
+                'content': x
             } for x in examples
         ]
         result = self.example_collection.insert_many(examples)
