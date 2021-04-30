@@ -20,6 +20,10 @@ class MongoDatabase:
         """
         if "mongo_uri" in config_data and config_data["mongo_uri"]:
             client = MongoClient(config_data["mongo_uri"])
+
+            # Grab the database name from the end of the mongo uri
+            MONGO_DB = config_data["mongo_uri"].split('/')[-1]
+
         else:
             MONGO_HOSTNAME = config_data.get("host", None) or os.environ['MONGO_HOSTNAME']
             MONGO_DB = config_data.get("database", None) or os.environ['MONGO_DB']
