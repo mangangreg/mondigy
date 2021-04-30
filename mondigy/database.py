@@ -133,14 +133,14 @@ class AnnotationDatabase(object):
             ids = list(ids)
         except TypeError:
             ids = [ids]
-        return [json.loads(x['content'])
+        return [x['content']
                 for x in self.example_collection.find({by: ids})]
 
     def get_meta(self, name):
         doc = self.dataset_collection.find_one({'name': name})
         if doc is None:
             return None
-        meta = json.loads(doc['meta'])
+        meta = doc['meta']
         meta['created'] = doc['created']
         return meta
 
@@ -156,7 +156,7 @@ class AnnotationDatabase(object):
             links[link['example_id']] = id_to_session[link['_id']]
         examples = []
         for eg in self.example_collection.find({'_id': {'$in': list(links.keys())}}):
-            example = json.loads(eg['content'])
+            example = (eg['content']
             example["session_id"] = links[eg['_id']]
             examples.append(example)
         return examples
@@ -174,7 +174,7 @@ class AnnotationDatabase(object):
             return default
 
         example_ids = [x['example_id'] for x in self.link_collection.find({'dataset_id': dataset['_id']})]
-        return [json.loads(x['content']) for x in self.example_collection.find({'_id': {'$in': example_ids}})]
+        return [x['content'] for x in self.example_collection.find({'_id': {'$in': example_ids}})]
 
     def get_dataset_page(self, name, page_number: int, page_size: int):
         dataset = self.dataset_collection.find_one({'name': name})
@@ -188,7 +188,7 @@ class AnnotationDatabase(object):
         examples = self.example_collection.find({'_id': [x['example_id'] for x in page]})
         examples = [{
             "id": str(x['_id']),
-            "content": json.loads(x['content']),
+            "content": x['content'],
             "input_hash": x['input_hash'],
             "task_hash": x['task_hash'],
         } for x in examples]
