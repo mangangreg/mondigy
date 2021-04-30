@@ -26,11 +26,13 @@ class MongoDatabase:
 
         else:
             MONGO_HOSTNAME = config_data.get("host", None) or os.environ.get('MONGO_HOSTNAME')
+            MONGO_PORT = config_data.get("port", None) or os.environ.get('MONGO_PORT')
             MONGO_DB = config_data.get("database", None) or os.environ.get('MONGO_DB')
             MONGO_USERNAME = config_data.get("user", None) or os.environ.get('MONGO_USERNAME')
             MONGO_PASSWORD = config_data.get("password", None) or os.environ.get('MONGO_PASSWORD')
             MONGO_AUTHENTICATION_DB = config_data.get("auth_source", None) or os.environ.get('MONGO_AUTHENTICATION_DB')
             client = MongoClient(host=MONGO_HOSTNAME,
+                                 port=MONGO_PORT,
                                  username=MONGO_USERNAME,
                                  password=MONGO_PASSWORD,
                                  authSource=MONGO_AUTHENTICATION_DB)
