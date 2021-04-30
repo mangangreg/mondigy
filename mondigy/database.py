@@ -156,7 +156,7 @@ class AnnotationDatabase(object):
             links[link['example_id']] = id_to_session[link['_id']]
         examples = []
         for eg in self.example_collection.find({'_id': {'$in': list(links.keys())}}):
-            example = (eg['content']
+            example = eg['content']
             example["session_id"] = links[eg['_id']]
             examples.append(example)
         return examples
