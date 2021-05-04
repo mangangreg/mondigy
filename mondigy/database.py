@@ -26,7 +26,7 @@ class MongoDatabase:
 
         else:
             MONGO_HOSTNAME = config_data.get("host", None) or os.environ.get('MONGO_HOSTNAME')
-            MONGO_PORT = config_data.get("port", None) or os.environ.get('MONGO_PORT')
+            MONGO_PORT = config_data.get("port", None) or int(os.environ.get('MONGO_PORT',27017)
             MONGO_DB = config_data.get("database", None) or os.environ.get('MONGO_DB')
             MONGO_USERNAME = config_data.get("user", None) or os.environ.get('MONGO_USERNAME')
             MONGO_PASSWORD = config_data.get("password", None) or os.environ.get('MONGO_PASSWORD')
